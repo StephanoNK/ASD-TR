@@ -1,8 +1,8 @@
 # ASD-TR
-1. Minimal ada 5 data
+1. ~Minimal ada 5 data
 cth :
 Topik : Univ
-Data : NIM, nama, jurusan, fakultas, nilai dsb ***100%***
+Data : NIM, nama, jurusan, fakultas, nilai dsb~
 
 2. Wajib Sorting + Searching (algoritma bebas)
  a. untuk sorting wajib ada ASC dan DESC
