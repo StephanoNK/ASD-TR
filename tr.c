@@ -59,13 +59,13 @@ void menu_utama(){
             printf("belum ada menu");
         }
         else if (pilihan == 2){
-            menu_admin();
+            login();
         }
     }
 }
 
 int attempt = 0;
-void menu_admin(){
+void login(){
 	system("cls");
 	int index = 0;
 	char user[] = "admin", pw[] = "admin";
@@ -117,6 +117,6 @@ void menu_admin(){
 			_getch();
 			exit(0);
 		}
-		menu_admin();
+		login();
 	}
 }
