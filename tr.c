@@ -1,5 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define _WIN32_WINNT 0x0500
+#include <windows.h>
+#include <string.h>
+#include <conio.h>
+
+void loading();
 
 struct mobil{
     char ID[5], nama[100], warna[30];
@@ -11,6 +17,106 @@ struct mobil{
 struct mobil *mobil = NULL;
 
 int main(){
-    printf("Hai.");
+    system("color F0");
+	HWND consoleWindow = GetConsoleWindow();
+	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+    loading();
+    menu_utama();
     return 0;
+}
+
+void loading() {
+	printf("\n\n\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t     SEDANG LODING, MOHON BERSABAR");
+	printf("\n\n\n\n\n\n");
+	printf("\t\t\t\t");
+	for (int i = 0; i <= 1325000000; i++) {
+		if (i % 25000000 == 0) {
+			printf("█");
+		}
+	}
+	printf("\n\n\t\t\t\t\t\tLOADING TELAH SELESAI");
+	_getch();
+}
+
+void menu_utama(){
+    int pilihan;
+    system("cls");
+    while (pilihan != 3){
+        printf("\n\n\n\n\n\n\n\n");
+        printf("\t\t\t\t\t**********************************\n");
+        printf("\t\t\t\t\t**    Kelompok Mobil Mobilan    **\n");
+        printf("\t\t\t\t\t**********************************\n");
+        printf("\n\n");
+        printf("\t\t\t\t\t\t1. Pilih Mobil\n");
+        printf("\t\t\t\t\t\t2. Menu Admin\n");
+        printf("\t\t\t\t\t\t3. Exit\n");
+        printf("\n\t\t\t\t\t\tPilih Menu : ");
+        scanf("%i", &pilihan);
+        while (getchar() != '\n');
+
+        if (pilihan == 1){
+            printf("belum ada menu");
+        }
+        else if (pilihan == 2){
+            menu_admin();
+        }
+    }
+}
+
+int attempt = 0;
+void menu_admin(){
+	system("cls");
+	int index = 0;
+	char user[] = "admin", pw[] = "admin";
+	char userinput[50], pwinput[50], c;
+	printf("\n\n\n\n\n");
+	printf("\t\t\t\t░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n"
+		"\t\t\t\t░░\t██╗      ██████╗  ██████╗ ██╗███╗   ██╗\t     ░░\n"
+		"\t\t\t\t░░\t██║     ██╔═══██╗██╔════╝ ██║████╗  ██║\t     ░░\n"
+		"\t\t\t\t░░\t██║     ██║   ██║██║  ███╗██║██╔██╗ ██║\t     ░░\n"
+		"\t\t\t\t░░\t██║     ██║   ██║██║   ██║██║██║╚██╗██║\t     ░░\n"
+		"\t\t\t\t░░\t███████╗╚██████╔╝╚██████╔╝██║██║ ╚████║\t     ░░\n"
+		"\t\t\t\t░░\t╚══════╝ ╚═════╝  ╚═════╝ ╚═╝╚═╝  ╚═══╝\t     ░░\n"
+		"\t\t\t\t░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░\n");
+	printf("\n\n\n\n");
+	printf("\t\t\t\tUsername: ");
+	fgets(userinput, sizeof(userinput), stdin);
+	userinput[strlen(userinput) - 1] = '\0';
+	printf("\t\t\t\tPassword: ");
+	while ((c = _getch()) != 13) {
+		if (index < 0)
+			index = 0;
+		if (c == 8 && index > 0) {
+			printf("\b \b");
+			index--;
+			continue;
+		}
+		if (c == -32) {
+			_getch();
+			continue;
+		}
+		if (c >= 32 && c <= 126) {
+			pwinput[index] = c;
+			index++;
+			printf("*");
+		}
+	}
+	pwinput[index] = '\0';
+	if (strcmp(userinput, user) == 0 && strcmp(pwinput, pw) == 0) {
+		printf("\n\t\t\t\t\t\tLogin berhasil");
+		getch();
+
+	}
+	else {
+		attempt++;
+		printf("\n\n\t\t\t\tUSERNAME ATAU PASSWORD SALAH (%d/3)", attempt);
+		_getch();
+		if (attempt == 3) {
+			printf("\n\t\t\t\tTERLALU BANYAK KESALAHAN LOGIN");
+			_getch();
+			exit(0);
+		}
+		menu_admin();
+	}
 }
