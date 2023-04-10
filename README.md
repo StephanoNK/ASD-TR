@@ -11,7 +11,7 @@ Data : NIM, nama, jurusan, fakultas, nilai dsb~
 
 4. ~Wajib pakai Linkedlist~
 
-5. Tampilan dibuat semenarik mungkin(Minimal ada 1 tampilan loading screen)
+5. Tampilan dibuat semenarik mungkin(~Minimal ada 1 tampilan loading screen~)
 tampilan bagus dan rapi = bonus
 
 6. Wajib ada menu History
@@ -20,4 +20,4 @@ tampilan bagus dan rapi = bonus
 misal topiknya univ, cetak KST di note pad (Nilai Bonus)
 
 
-8. Usahakan ada login page + Wajib Tambahkan keamanan(error handling)
+8. ~Usahakan ada login page~ + Wajib Tambahkan keamanan(error handling)
