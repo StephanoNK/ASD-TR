@@ -5,7 +5,7 @@
 #include <string.h>
 #include <conio.h>
 
-void loading();
+void loading(),login(), menu_admin(), menu_utama();
 
 struct mobil{
     char ID[5], nama[100], warna[30];
@@ -104,8 +104,9 @@ void login(){
 	}
 	pwinput[index] = '\0';
 	if (strcmp(userinput, user) == 0 && strcmp(pwinput, pw) == 0) {
-		printf("\n\t\t\t\t\t\tLogin berhasil");
+		printf("\n\n\n\n\t\t\t\t\t\t   Login berhasil");
 		getch();
+		menu_admin();
 
 	}
 	else {
@@ -120,3 +121,45 @@ void login(){
 		login();
 	}
 }
+
+void menu_admin(){
+    int pilihan;
+    system("cls");
+    while (pilihan != 6){
+        printf("\n\n\n\n\n\n\n\n");
+        printf("\t\t\t\t\t**********************************\n");
+        printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
+        printf("\t\t\t\t\t**********************************\n");
+        printf("\n");
+        printf("\t\t\t\t\t\t1. Tambah unit mobil \n");
+        printf("\t\t\t\t\t\t2. Edit unit mobil\n");
+        printf("\t\t\t\t\t\t3. Hapus unit mobil\n");
+        printf("\t\t\t\t\t\t4. Lihat daftar unit mobil\n");
+        printf("\t\t\t\t\t\t5. Search unit mobil\n");
+        printf("\t\t\t\t\t\t6. Keluar\n");
+        printf("\n\t\t\t\t\t\tPilih Menu : ");
+        scanf("%i", &pilihan);
+        while (getchar() != '\n');
+
+        if (pilihan == 1){
+            return;
+        }
+        else if (pilihan == 2){
+            return;
+        }
+        else if (pilihan == 3){
+            return;
+        }
+        else if (pilihan == 4){
+            return;
+        }
+        else if (pilihan == 5){
+            return;
+        }
+        else if (pilihan == 6){
+            exit(0);
+        }
+
+    }
+}
+
