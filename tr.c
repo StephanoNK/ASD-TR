@@ -6,7 +6,7 @@
 #include <conio.h>
 
 void loading();
-
+#adsadasdas
 struct mobil{
     char ID[5], nama[100], warna[30];
     int tahun;
