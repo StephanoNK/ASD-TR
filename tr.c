@@ -30,10 +30,13 @@ void loading() {
 	printf("\t\t\t\t\t     SEDANG LODING, MOHON BERSABAR");
 	printf("\n\n\n\n\n\n");
 	printf("\t\t\t\t");
-	for (int i = 0; i <= 1325000000; i++) {
-		if (i % 25000000 == 0) {
-			printf("█");
-		}
+	for (int i = 0; i <= 53; i++) {
+		printf("█");
+		if(i == 4) printf("\033[1B");
+		if(i == 8) printf("\033[1B");
+		if(i == 44) printf("\033[1A");
+		if(i == 48) printf("\033[1A");
+		Sleep(50);
 	}
 	printf("\n\n\t\t\t\t\t\tLOADING TELAH SELESAI");
 	_getch();
