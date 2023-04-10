@@ -6,7 +6,7 @@
 #include <conio.h>
 
 void loading(),login(), menu_admin(), menu_utama();
-
+//weadfsdfaewfe
 struct mobil{
     char ID[5], nama[100], warna[30];
     int tahun;
