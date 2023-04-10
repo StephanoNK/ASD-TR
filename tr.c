@@ -14,7 +14,7 @@ struct mobil{
     struct mobil* prev;
     struct mobil* next;
 };
-struct mobil *mobil = NULL;
+struct mobil *head = NULL;
 
 int main(){
     system("color F0");
