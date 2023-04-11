@@ -45,7 +45,6 @@ void loading() {
 void menu_utama(){
     int pilihan;
     system("cls");
-    while (pilihan != 3){
         printf("\n\n\n\n\n\n\n\n");
         printf("\t\t\t\t\t**********************************\n");
         printf("\t\t\t\t\t**    Kelompok Mobil Mobilan    **\n");
@@ -64,7 +63,11 @@ void menu_utama(){
         else if (pilihan == 2){
             login();
         }
-    }
+        else if (pilihan == 3) {
+            exit(0);
+        }
+        menu_utama();
+
 }
 
 int attempt = 0;
@@ -128,7 +131,6 @@ void login(){
 void menu_admin(){
     int pilihan;
     system("cls");
-    while (pilihan != 6){
         printf("\n\n\n\n\n\n\n\n");
         printf("\t\t\t\t\t**********************************\n");
         printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
@@ -157,12 +159,42 @@ void menu_admin(){
             return;
         }
         else if (pilihan == 5){
-            return;
+            search();
+            getch();
         }
         else if (pilihan == 6){
-            exit(0);
+            menu_utama();
         }
+        menu_admin();
 
+}
+
+void search(){
+    system("cls");
+    char find[30];
+    struct mobil *temp;
+    temp = head;
+
+    printf("Masukkan nama mobil yang ingin dicari: ");
+    scanf("%s", &find);
+    printf("Anda akan mencari %s\n\n", find);
+    getch();
+    if (temp == NULL){
+        printf("List Kosong\n");
     }
+    else{
+        while(temp != NULL){
+        if (strcmp(temp->nama, find)==0){
+            printf("Mobil ditemukan\n");
+            temp = temp->next;
+        }
+            else{
+                printf("Mobil tidak ditemukan\n");
+                return;
+            }
+        }
+    }
+
+    getch();
 }
 
