@@ -5,10 +5,10 @@
 #include <string.h>
 #include <conio.h>
 
-void loading(),login(), menu_admin(), menu_utama();
+void loading(),login(), menu_admin(), menu_utama(), create();
 
 struct mobil{
-    char ID[5], nama[100], warna[30];
+    char ID[7], merk[50], nama[100], warna[30];
     int tahun;
     long harga;
     struct mobil* prev;
@@ -147,7 +147,8 @@ void menu_admin(){
         while (getchar() != '\n');
 
         if (pilihan == 1){
-            return;
+            create();
+	    return;
         }
         else if (pilihan == 2){
             return;
@@ -198,3 +199,46 @@ void search(){
     getch();
 }
 
+
+void create() {
+	system("cls");
+	struct mobil* ptr, * temp;
+	ptr = (struct mobil*)malloc(sizeof(struct mobil));
+	if (ptr == NULL) {
+		printf("MEMORY FULL!");
+		getch();
+		return;
+	}
+	printf("\n\n\n\n\n\n\n\n");
+	printf("\t\t\t\t\t**********************************\n");
+	printf("\t\t\t\t\t**       MENU TAMBAH MOBIL      **\n");
+	printf("\t\t\t\t\t**********************************\n");
+	printf("\n");
+	printf("\n\t\t\t\t\tMasukkan Merk Mobil: ");
+	scanf("%[^\n]s", &ptr->merk);
+	while (getchar() != '\n');
+	printf("\n\t\t\t\t\tMasukkan Nama Mobil: ");
+	scanf("%[^\n]s", &ptr->nama);
+	while (getchar() != '\n');
+	printf("\n\t\t\t\t\tMasukkan Warna Mobil: ");
+	scanf("%[^\n]s", &ptr->warna);
+	while (getchar() != '\n');
+	printf("\n\t\t\t\t\tMasukkan Tahun Mobil: ");
+	scanf("%d", &ptr->tahun);
+	while (getchar() != '\n');
+	printf("\n\t\t\t\t\tMasukkan Harga Mobil: ");
+	scanf("%ld", &ptr->harga);
+	while (getchar() != '\n');
+	sprintf(ptr->ID, "%.2s%.2s%.1s%d", ptr->merk, ptr->nama, ptr->warna, ptr->tahun % 100);
+	ptr->next = NULL;
+	if (head == NULL) {
+		ptr->next = head;
+		ptr->prev = NULL;
+		head = ptr;
+		return;
+	}
+	temp = head;
+	while (temp->next != NULL) temp = temp->next;
+	ptr->prev = temp;
+	temp->next = ptr;
+}
