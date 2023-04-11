@@ -4,25 +4,28 @@
 #include <windows.h>
 #include <string.h>
 #include <conio.h>
+#include <pthread.h>
 
-void loading(),login(), menu_admin(), menu_utama(), create();
+void loading(), login(), menu_admin(), menu_utama(), create(), UwU();
+int rahasia = 0;
+pthread_t thread;
 
-struct mobil{
-    char ID[7], merk[50], nama[100], warna[30];
-    int tahun;
-    long harga;
-    struct mobil* prev;
-    struct mobil* next;
+struct mobil {
+	char ID[7], merk[50], nama[100], warna[30];
+	int tahun;
+	long harga;
+	struct mobil* prev;
+	struct mobil* next;
 };
-struct mobil *head = NULL;
+struct mobil* head = NULL;
 
-int main(){
-    system("color F0");
+int main() {
+	system("color F0");
 	HWND consoleWindow = GetConsoleWindow();
 	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
-    loading();
-    menu_utama();
-    return 0;
+	loading();
+	menu_utama();
+	return 0;
 }
 
 void loading() {
@@ -32,46 +35,60 @@ void loading() {
 	printf("\t\t\t\t");
 	for (int i = 0; i <= 53; i++) {
 		printf("█");
-		if(i == 4) printf("\033[1B");
-		if(i == 8) printf("\033[1B");
-		if(i == 44) printf("\033[1A");
-		if(i == 48) printf("\033[1A");
+		if (i == 4) printf("\033[1B");
+		if (i == 8) printf("\033[1B");
+		if (i == 44) printf("\033[1A");
+		if (i == 48) printf("\033[1A");
 		Sleep(50);
 	}
 	printf("\n\n\t\t\t\t\t\tLOADING TELAH SELESAI");
 	_getch();
 }
 
-void menu_utama(){
-    int pilihan;
-    system("cls");
-        printf("\n\n\n\n\n\n\n\n");
-        printf("\t\t\t\t\t**********************************\n");
-        printf("\t\t\t\t\t**    Kelompok Mobil Mobilan    **\n");
-        printf("\t\t\t\t\t**********************************\n");
-        printf("\n\n");
-        printf("\t\t\t\t\t\t1. Pilih Mobil\n");
-        printf("\t\t\t\t\t\t2. Menu Admin\n");
-        printf("\t\t\t\t\t\t3. Exit\n");
-        printf("\n\t\t\t\t\t\tPilih Menu : ");
-        scanf("%i", &pilihan);
-        while (getchar() != '\n');
+void menu_utama() {
+	int pilihan;
+	while (pilihan != 3) {
+		system("cls");
+		printf("\n\n\n\n\n\n\n\n");
+		printf("\t\t\t\t\t**********************************\n");
+		printf("\t\t\t\t\t**    Kelompok Mobil Mobilan    **\n");
+		printf("\t\t\t\t\t**********************************\n");
+		printf("\n\n");
+		printf("\t\t\t\t\t\t1. Pilih Mobil\n");
+		printf("\t\t\t\t\t\t2. Menu Admin\n");
+		printf("\t\t\t\t\t\t3. Exit\n");
+		printf("\t\t\t\t\t\t4. ???\n");
+		printf("\n\t\t\t\t\t\tPilih Menu : ");
+		scanf("%i", &pilihan);
+		while (getchar() != '\n');
 
-        if (pilihan == 1){
-            printf("belum ada menu");
-        }
-        else if (pilihan == 2){
-            login();
-        }
-        else if (pilihan == 3) {
-            exit(0);
-        }
-        menu_utama();
+		if (pilihan == 1) {
+			printf("belum ada menu");
+		}
+		else if (pilihan == 2) {
+			login();
+		}
+		else if (pilihan == 3) {
+			exit(0);
+		}
+		else if (pilihan == 4) {
+			if (rahasia == 1) {
+				rahasia = 0;
+				pthread_join(thread, NULL);
+				continue;
+			}
+			rahasia = 1;
+			if (pthread_create(&thread, NULL, UwU, NULL)) {
+				fprintf(stderr, "Error creating thread\n");
+				continue;
+			}
+		}
+	}
 
 }
 
 int attempt = 0;
-void login(){
+void login() {
 	system("cls");
 	int index = 0;
 	char user[] = "admin", pw[] = "admin";
@@ -128,75 +145,74 @@ void login(){
 	}
 }
 
-void menu_admin(){
-    int pilihan;
-    system("cls");
-        printf("\n\n\n\n\n\n\n\n");
-        printf("\t\t\t\t\t**********************************\n");
-        printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
-        printf("\t\t\t\t\t**********************************\n");
-        printf("\n");
-        printf("\t\t\t\t\t\t1. Tambah unit mobil \n");
-        printf("\t\t\t\t\t\t2. Edit unit mobil\n");
-        printf("\t\t\t\t\t\t3. Hapus unit mobil\n");
-        printf("\t\t\t\t\t\t4. Lihat daftar unit mobil\n");
-        printf("\t\t\t\t\t\t5. Search unit mobil\n");
-        printf("\t\t\t\t\t\t6. Keluar\n");
-        printf("\n\t\t\t\t\t\tPilih Menu : ");
-        scanf("%i", &pilihan);
-        while (getchar() != '\n');
+void menu_admin() {
+	int pilihan;
+	while (pilihan != 6) {
+		system("cls");
+		printf("\n\n\n\n\n\n\n\n");
+		printf("\t\t\t\t\t**********************************\n");
+		printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
+		printf("\t\t\t\t\t**********************************\n");
+		printf("\n");
+		printf("\t\t\t\t\t\t1. Tambah unit mobil \n");
+		printf("\t\t\t\t\t\t2. Edit unit mobil\n");
+		printf("\t\t\t\t\t\t3. Hapus unit mobil\n");
+		printf("\t\t\t\t\t\t4. Lihat daftar unit mobil\n");
+		printf("\t\t\t\t\t\t5. Search unit mobil\n");
+		printf("\t\t\t\t\t\t6. Keluar\n");
+		printf("\n\t\t\t\t\t\tPilih Menu : ");
+		scanf("%i", &pilihan);
+		while (getchar() != '\n');
 
-        if (pilihan == 1){
-            create();
-	    return;
-        }
-        else if (pilihan == 2){
-            return;
-        }
-        else if (pilihan == 3){
-            return;
-        }
-        else if (pilihan == 4){
-            return;
-        }
-        else if (pilihan == 5){
-            search();
-            getch();
-        }
-        else if (pilihan == 6){
-            menu_utama();
-        }
-        menu_admin();
-
+		if (pilihan == 1) {
+			create();
+		}
+		else if (pilihan == 2) {
+			return;
+		}
+		else if (pilihan == 3) {
+			return;
+		}
+		else if (pilihan == 4) {
+			return;
+		}
+		else if (pilihan == 5) {
+			search();
+			getch();
+		}
+		else if (pilihan == 6) {
+			return;
+		}
+	}
 }
 
-void search(){
-    system("cls");
-    char find[30];
-    struct mobil *temp;
-    temp = head;
+void search() {
+	system("cls");
+	char find[30];
+	struct mobil* temp;
+	temp = head;
 
-    printf("Masukkan nama mobil yang ingin dicari: ");
-    scanf("%s", &find);
-    printf("Anda akan mencari %s\n\n", find);
-    getch();
-    if (temp == NULL){
-        printf("List Kosong\n");
-    }
-    else{
-        while(temp != NULL){
-        if (strcmp(temp->nama, find)==0){
-            printf("Mobil ditemukan\n");
-            temp = temp->next;
-        }
-            else{
-                printf("Mobil tidak ditemukan\n");
-                return;
-            }
-        }
-    }
+	printf("Masukkan nama mobil yang ingin dicari: ");
+	scanf("%s", &find);
+	printf("Anda akan mencari %s\n\n", find);
+	getch();
+	if (temp == NULL) {
+		printf("List Kosong\n");
+	}
+	else {
+		while (temp != NULL) {
+			if (strcmp(temp->nama, find) == 0) {
+				printf("Mobil ditemukan\n");
+				temp = temp->next;
+			}
+			else {
+				printf("Mobil tidak ditemukan\n");
+				return;
+			}
+		}
+	}
 
-    getch();
+	getch();
 }
 
 
@@ -241,4 +257,19 @@ void create() {
 	while (temp->next != NULL) temp = temp->next;
 	ptr->prev = temp;
 	temp->next = ptr;
+}
+
+void UwU() {
+	char warna[16] = { 'A', 'B', 'C', 'D', 'E', 'F', '0', '1', '2','3','4','5','6','7','8','9' };
+	srand(time(NULL));
+	char commandwarna[20];
+	while (rahasia == 1) {
+		Sleep(1000);
+		char warna1 = warna[rand() % 16];
+		char warna2 = warna[rand() % 16];
+		sprintf(commandwarna, "color %c%c", warna1, warna2);
+		system(commandwarna);
+	}
+	system("color F0");
+	return NULL;
 }
