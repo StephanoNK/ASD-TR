@@ -44,8 +44,8 @@ void loading() {
 
 void menu_utama(){
     int pilihan;
-    system("cls");
     while (pilihan != 3){
+		system("cls");
         printf("\n\n\n\n\n\n\n\n");
         printf("\t\t\t\t\t**********************************\n");
         printf("\t\t\t\t\t**    Kelompok Mobil Mobilan    **\n");
@@ -127,8 +127,8 @@ void login(){
 
 void menu_admin(){
     int pilihan;
-    system("cls");
     while (pilihan != 6){
+		system("cls");
         printf("\n\n\n\n\n\n\n\n");
         printf("\t\t\t\t\t**********************************\n");
         printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
@@ -177,23 +177,34 @@ void create() {
 	}
 	printf("\n\n\n\n\n\n\n\n");
 	printf("\t\t\t\t\t**********************************\n");
-	printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
+	printf("\t\t\t\t\t**       MENU TAMBAH MOBIL      **\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\t\t\tMasukkan Merk Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Merk Mobil: ");
 	scanf("%[^\n]s", &ptr->merk);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\t\tMasukkan Nama Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Nama Mobil: ");
 	scanf("%[^\n]s", &ptr->nama);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\t\tMasukkan Warna Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Warna Mobil: ");
 	scanf("%[^\n]s", &ptr->warna);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\t\tMasukkan Tahun Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Tahun Mobil: ");
 	scanf("%d", &ptr->tahun);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\t\tMasukkan Harga Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Harga Mobil: ");
 	scanf("%ld", &ptr->harga);
 	while (getchar() != '\n');
-
+	sprintf(ptr->ID, "%.2s%.2s%.1s%d", ptr->merk, ptr->nama, ptr->warna, ptr->tahun % 100);
+	ptr->next = NULL;
+	if (head == NULL) {
+		ptr->next = head;
+		ptr->prev = NULL;
+		head = ptr;
+		return;
+	}
+	temp = head;
+	while (temp->next != NULL) temp = temp->next;
+	ptr->prev = temp;
+	temp->next = ptr;
 }
