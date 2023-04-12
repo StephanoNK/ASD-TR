@@ -195,7 +195,8 @@ void search() {
 	system("cls");
 	char find[30];
 	int found = 0;
-	struct mobil* temp, * ptr;
+
+	struct mobil* temp, *ptr;
 	temp = head;
 	ptr = head;
 
