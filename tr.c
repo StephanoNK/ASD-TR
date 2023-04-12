@@ -193,16 +193,18 @@ void menu_admin() {
 void search() {
 	system("cls");
 	char find[30];
-	struct mobil* temp;
+	int found = 0;
+	struct mobil* temp, *ptr;
 	temp = head;
+	ptr = head;
 
 	printf("\n\n\n\n\n\n\n\n");
     printf("\t\t\t\t\t**********************************\n");
     printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
     printf("\t\t\t\t\t**********************************\n");
     printf("\n");
-	printf("\n\t\t\t\t\Masukkan nama mobil yang ingin dicari: ");
-	scanf("%s", &find);
+	printf("\n\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
+	scanf("%s", find);
 	printf("\n\t\t\t\t\Anda akan mencari %s\n\n", find);
 	getch();
 	if (temp == NULL) {
@@ -211,16 +213,21 @@ void search() {
 	else {
 		while (temp != NULL) {
 			if (strcmp(temp->nama, find) == 0) {
-				printf("\n\t\t\t\t\Mobil ditemukan\n");
-				temp = temp->next;
+				printf("Mobil ditemukan");
+				found = 1;
 			}
-			else {
-				printf("\n\t\t\t\t\Mobil tidak ditemukan\n");
-				return;
-			}
+            temp = temp->next;
 		}
+		if (found == 0){
+            printf("Mobil tidak ditemukan");
+		}
+
+		found = 0;
+		printf("\nSearch Finished");
 	}
+
 }
+
 
 long int inputangka() {
 	int index = 0;
@@ -350,11 +357,13 @@ void edit(){
                 printf("\n\t\t\t\t\tMasukkan Harga Mobil: ");
                 scanf("%ld", &temp->harga);
 				temp = temp->next;
+				found = 1;
 			}
-			else {
+			else if (found == 0){
 				printf("\n\t\t\t\t\Mobil tidak ditemukan\n");
 				return;
 			}
+			found = 0;
 		}
 	}
 
