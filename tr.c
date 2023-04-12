@@ -200,7 +200,6 @@ void search() {
 
 	struct mobil* temp;
 	temp = head;
-	ptr = head;
 
 	printf("\n\n\n\n\n\n\n\n");
 	printf("\t\t\t\t\t**********************************\n");
