@@ -7,13 +7,14 @@
 #include <pthread.h>
 
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU();
+void read();
 int rahasia = 0;
 pthread_t thread;
 
 struct mobil {
-	char ID[7], merk[50], nama[100], warna[30];
+	char ID[8], merk[60], nama[100], warna[30];
 	int tahun;
-	long harga;
+	long long harga;
 	struct mobil* prev;
 	struct mobil* next;
 };
@@ -176,7 +177,7 @@ void menu_admin() {
 			return;
 		}
 		else if (pilihan == 4) {
-			return;
+			read();
 		}
 		else if (pilihan == 5) {
 			search();
@@ -218,7 +219,7 @@ void search() {
 	getch();
 }
 
-long int inputangka() {
+long long inputangka() {
 	int index = 0;
 	char c;
 	char pwinput[100];
@@ -241,13 +242,14 @@ long int inputangka() {
 		}
 	}
 	pwinput[index] = '\0';
-	long int angka = atol(pwinput);
+	long long angka = atoll(pwinput);
 	return angka;
 }
 
 
 void create() {
 	system("cls");
+	char test[50];
 	struct mobil* ptr, * temp;
 	ptr = (struct mobil*)malloc(sizeof(struct mobil));
 	if (ptr == NULL) {
@@ -287,6 +289,30 @@ void create() {
 	while (temp->next != NULL) temp = temp->next;
 	ptr->prev = temp;
 	temp->next = ptr;
+}
+
+void read() {
+	system("cls");
+	struct mobil* ptr;
+	int posisi = 0;
+	ptr = head;
+	printf("\n");
+	printf("\t╔═════════╦════════════════╦══════════════════╦══════════════╦═══════════╦═════════════════════╗\n");
+	printf("\t║   ID    ║      Merk      ║       Nama       ║     Warna    ║   Tahun   ║        Harga        ║\n");
+	printf("\t╠═════════╬════════════════╬══════════════════╬══════════════╬═══════════╬═════════════════════╣\n");
+	while (ptr != NULL) {
+		printf("\t║         ║                ║                  ║              ║           ║                     ║\n");
+		ptr = ptr->next;
+		posisi++;
+	}
+	printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
+	printf("\033[%dA", posisi + 1);
+	ptr = head;
+	while (ptr != NULL) {
+		printf("\t\t\b\b\b\b\b\b%s\t\t\b\b\b\b\b\b\b\b\b\b\b\b%s\t\t\b\b\b%s\t\t%s\t\t\b%d\t\t\b\b\b\b\b%lld\n", ptr->ID, ptr->merk, ptr->nama, ptr->warna, ptr->tahun, ptr->harga);
+		ptr = ptr->next;
+	}
+	getch();
 }
 
 void UwU() {
