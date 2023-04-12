@@ -205,10 +205,10 @@ void search() {
     printf("\n");
 	printf("\n\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
 	scanf("%s", find);
-	printf("\n\t\t\t\t\Anda akan mencari %s\n\n", find);
+	printf("\n\t\t\t\tAnda akan mencari %s\n\n", find);
 	getch();
 	if (temp == NULL) {
-		printf("\n\t\t\t\t\List Kosong\n");
+		printf("\n\t\t\t\tList Kosong\n");
 	}
 	else {
 		while (temp != NULL) {
@@ -341,7 +341,7 @@ void edit(){
 	else {
 		while (temp != NULL) {
 			if (strcmp(temp->ID, find) == 0) {
-				printf("\n\t\t\t\t\Mobil ditemukan\n Silahkan update date mobil ");
+				printf("\n\t\t\t\tMobil ditemukan\n Silahkan update date mobil ");
                 printf("\n\t\t\t\t\tMasukkan Merk Mobil: ");
                 scanf("%[^\n]s", &temp->merk);
                 while (getchar() != '\n');
@@ -360,7 +360,7 @@ void edit(){
 				found = 1;
 			}
 			else if (found == 0){
-				printf("\n\t\t\t\t\Mobil tidak ditemukan\n");
+				printf("\n\t\t\t\tMobil tidak ditemukan\n");
 				return;
 			}
 			found = 0;
