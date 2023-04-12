@@ -227,7 +227,7 @@ void search() {
 		}
 
 		found = 0;
-		printf("\n\t\t\t\t\t\t\Search Finished");
+		printf("\n\t\t\t\t\t\tSearch Finished");
 	}
 
 }
@@ -357,10 +357,10 @@ void edit() {
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
 	read();
-	printf("\n\t\t\t\t\    Masukkan ID mobil yang ingin dicari: ");
+	printf("\n\t\t\t\t    Masukkan ID mobil yang ingin dicari: ");
 	scanf("%s", &find);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\    Anda mengupdate data mobil dengan id %s\n\n", find);
+	printf("\n\t\t\t\t    Anda mengupdate data mobil dengan id %s\n\n", find);
 	getch();
 	system("cls");
 	if (temp == NULL) {
