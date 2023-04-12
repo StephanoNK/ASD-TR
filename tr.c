@@ -290,7 +290,7 @@ void create() {
 	ptr->prev = temp;
 	temp->next = ptr;
 }
-
+//m
 void read() {
 	system("cls");
 	struct mobil* ptr;
