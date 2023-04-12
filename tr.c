@@ -7,7 +7,7 @@
 #include <pthread.h>
 
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU(), edit();
-void read(), delete();
+void read(), delete(), pilih_mobil();
 
 int rahasia = 0;
 pthread_t thread;
@@ -198,36 +198,36 @@ void search() {
 	char find[30];
 	int found = 0;
 
-	struct mobil* temp, *ptr;
+	struct mobil* temp;
 	temp = head;
-	ptr = head;
 
 	printf("\n\n\n\n\n\n\n\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
+	printf("\n\t\t\t\t   Masukkan nama mobil yang ingin dicari: ");
 	scanf("%s", find);
-	printf("\n\t\t\t\tAnda akan mencari %s\n\n", find);
+	printf("\n\t\t\t\t\t  Anda akan mencari %s\n\n", find);
 	getch();
 	if (temp == NULL) {
-		printf("\n\t\t\t\tList Kosong\n");
+		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
 	}
 	else {
 		while (temp != NULL) {
 			if (strcmp(temp->nama, find) == 0) {
-				printf("Mobil ditemukan");
+				printf("\n\n\n\n\n\n\t\t\t\t\t\t\tMobil ditemukan");
+                getch();
 				found = 1;
 			}
 			temp = temp->next;
 		}
 		if (found == 0) {
-			printf("Mobil tidak ditemukan");
+			printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tMobil tidak ditemukan");
 		}
 
 		found = 0;
-		printf("\nSearch Finished");
+		printf("\n\t\t\t\t\t\tSearch Finished");
 	}
 
 }
@@ -356,19 +356,26 @@ void edit() {
 	printf("\t\t\t\t\t**       MENU EDIT MOBIL      **\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\t\Masukkan ID mobil yang ingin dicari: ");
+	read();
+	printf("\n\t\t\t\t    Masukkan ID mobil yang ingin dicari: ");
 	scanf("%s", &find);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\Anda mengupdate data mobil dengan id %s\n\n", find);
+	printf("\n\t\t\t\t    Anda mengupdate data mobil dengan id %s\n\n", find);
 	getch();
 	system("cls");
 	if (temp == NULL) {
-		printf("\n\t\t\t\t\List kosong\n");
+		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
 	}
 	else {
 		while (temp != NULL) {
 			if (strcmp(temp->ID, find) == 0) {
-				printf("\n\t\t\t\tMobil ditemukan\n Silahkan update date mobil ");
+                printf("\n\n\n\n\n\n\n");
+                printf("\t\t\t\t\t**********************************\n");
+                printf("\t\t\t\t\t**       MENU EDIT MOBIL      **\n");
+                printf("\t\t\t\t\t**********************************\n");
+                printf("\n");
+				printf("\n\t\t\t\t\t\t Mobil ditemukan\n");
+                printf("\n\t\t\t\t\t   Silahkan update date mobil\n");
 				printf("\n\t\t\t\t\tMasukkan Merk Mobil: ");
 				scanf("%[^\n]s", &temp->merk);
 				while (getchar() != '\n');
@@ -379,21 +386,55 @@ void edit() {
 				scanf("%[^\n]s", &temp->warna);
 				while (getchar() != '\n');
 				printf("\n\t\t\t\t\tMasukkan Tahun Mobil: ");
-				scanf("%d", &temp->tahun);
-				while (getchar() != '\n');
+				temp->tahun = (int)inputangka();
+				printf("\n");
 				printf("\n\t\t\t\t\tMasukkan Harga Mobil: ");
-				scanf("%ld", &temp->harga);
-				temp = temp->next;
+				temp->harga = inputangka();
 				found = 1;
 			}
-			else if (found == 0) {
-				printf("\n\t\t\t\tMobil tidak ditemukan\n");
-				return;
-			}
-			found = 0;
+			temp = temp->next;
+		}
+		if (found == 0){
+            printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tMobil tidak ditemukan");
+            return;
 		}
 	}
 
+}
+
+void pilih_mobil(){
+    char find[30];
+	int found = 0;
+	int jumlah;
+
+	struct mobil* temp;
+	temp = head;
+
+    read();
+
+    printf("\n\t\t\t\t   Masukkan pesanan : ");
+	scanf("%s", find);
+	if (temp == NULL) {
+		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
+	}
+	else {
+		while (temp != NULL) {
+			if (strcmp(temp->ID, find) == 0) {
+				printf("\n\n\n\n\n\n\t\t\t\t\t\tMobil yang dipilih : %s", &temp->nama);
+				printf("\n\n\n\n\n\n\t\t\t\t\t\tJumlah pesanan : ");
+                jumlah = inputangka();
+                getch();
+				found = 1;
+			}
+			temp = temp->next;
+		}
+		if (found == 0) {
+			printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tMobil tidak ditemukan");
+		}
+
+		found = 0;
+		printf("\n\t\t\t\t\t\tSearch Finished");
+	}
 }
 
 void delete() {
