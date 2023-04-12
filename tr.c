@@ -7,14 +7,15 @@
 #include <pthread.h>
 
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU(), edit();
-void read();
+void read(), delete();
+
 int rahasia = 0;
 pthread_t thread;
 
 struct mobil {
 	char ID[8], merk[50], nama[100], warna[30];
 	int tahun;
-	long harga;
+	long long harga;
 	struct mobil* prev;
 	struct mobil* next;
 };
@@ -175,10 +176,11 @@ void menu_admin() {
 			getch();
 		}
 		else if (pilihan == 3) {
-			return;
+			delete();
 		}
 		else if (pilihan == 4) {
-			return;
+			read();
+			getch();
 		}
 		else if (pilihan == 5) {
 			search();
@@ -231,7 +233,7 @@ void search() {
 }
 
 
-long int inputangka() {
+long long inputangka() {
 	int index = 0;
 	char c;
 	char pwinput[100];
@@ -254,7 +256,7 @@ long int inputangka() {
 		}
 	}
 	pwinput[index] = '\0';
-	long int angka = atol(pwinput);
+	long long angka = atoll(pwinput);
 	return angka;
 }
 
@@ -323,7 +325,6 @@ void read() {
 		printf("\t\t\b\b\b\b\b\b%s\t\t\b\b\b\b\b\b\b\b\b\b\b\b%s\t\t\b\b\b%s\t\t%s\t\t\b%d\t\t\b\b\b\b\b%lld\n", ptr->ID, ptr->merk, ptr->nama, ptr->warna, ptr->tahun, ptr->harga);
 		ptr = ptr->next;
 	}
-	getch();
 }
 
 void UwU() {
@@ -393,4 +394,59 @@ void edit() {
 		}
 	}
 
+}
+
+void delete() {
+	if (head == NULL) {
+		printf("List kosong!");
+		getch();
+		return;
+	}
+	read();
+	char IDhapus[10];
+	int posisi = 0;
+	struct mobil* ptr, * temp;
+	printf("\n\n\t\tKetik ID yang akan dihapus: ");
+	scanf("%[^\n]s", &IDhapus);
+	while (getchar() != '\n');
+	ptr = head;
+	while (ptr != NULL) {
+		if (ptr->next == NULL && ptr->prev == NULL && strcmp(IDhapus, ptr->ID) == 0) {
+			head = NULL;
+			free(ptr);
+			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
+			getch();
+			return;
+		}
+		if (ptr->next == NULL && ptr->prev != NULL && strcmp(IDhapus, ptr->ID) == 0) {
+			temp = ptr->prev;
+			temp->next = NULL;
+			free(ptr);
+			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
+			getch();
+			return;
+		}
+		if (ptr->next != NULL && ptr->prev == NULL && strcmp(IDhapus, ptr->ID) == 0) {
+			temp = ptr->next;
+			temp->prev = NULL;
+			free(ptr);
+			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
+			getch();
+			return;
+		}
+		if (strcmp(IDhapus, ptr->ID) == 0) {
+			struct mobil* temp2;
+			temp = ptr->prev;
+			temp2 = ptr->next;
+			temp->next = temp2;
+			temp2->prev = temp;
+			free(ptr);
+			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
+			getch();
+			return;
+		}
+		ptr = ptr->next;
+	}
+	printf("\n\t\tID tidak ditemukan!");
+	getch();
 }
