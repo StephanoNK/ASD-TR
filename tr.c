@@ -170,11 +170,11 @@ void menu_admin() {
 			create();
 		}
 		else if (pilihan == 2) {
-			return;
-		}
-		else if (pilihan == 3) {
 			edit();
 			getch();
+		}
+		else if (pilihan == 3) {
+			return;
 		}
 		else if (pilihan == 4) {
 			return;
