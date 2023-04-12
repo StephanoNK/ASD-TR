@@ -4,7 +4,7 @@ cth :
 Topik : Univ
 Data : NIM, nama, jurusan, fakultas, nilai dsb~
 
-2. Wajib Sorting + Searching (algoritma bebas)
+2. Wajib Sorting + ~Searching (algoritma bebas)~
  a. untuk sorting wajib ada ASC dan DESC
 
 3. ~Wajib CRUD (Create, read, update, delete)~
