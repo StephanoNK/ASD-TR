@@ -106,6 +106,7 @@ void login() {
 	printf("\t\t\t\tUsername: ");
 	fgets(userinput, sizeof(userinput), stdin);
 	userinput[strlen(userinput) - 1] = '\0';
+	fflush(stdin);
 	printf("\t\t\t\tPassword: ");
 	while ((c = _getch()) != 13) {
 		if (index < 0)
@@ -146,10 +147,11 @@ void login() {
 }
 
 void menu_admin() {
+	system("color 0F");
 	int pilihan;
 	while (pilihan != 6) {
 		system("cls");
-		printf("\n\n\n\n\n\n\n\n");
+		printf("\n\n\n\n\n\n\n");
 		printf("\t\t\t\t\t**********************************\n");
 		printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
 		printf("\t\t\t\t\t**********************************\n");
@@ -181,6 +183,7 @@ void menu_admin() {
 			getch();
 		}
 		else if (pilihan == 6) {
+			system("color F0");
 			return;
 		}
 	}
@@ -215,6 +218,33 @@ void search() {
 	getch();
 }
 
+long int inputangka() {
+	int index = 0;
+	char c;
+	char pwinput[100];
+	while ((c = _getch()) != 13) {
+		if (index < 0)
+			index = 0;
+		if (c == 8 && index > 0) {
+			printf("\b \b");
+			index--;
+			continue;
+		}
+		if (c == -32) {
+			_getch();
+			continue;
+		}
+		if (c >= 48 && c <= 57) {
+			pwinput[index] = c;
+			index++;
+			printf("%c", c);
+		}
+	}
+	pwinput[index] = '\0';
+	long int angka = atol(pwinput);
+	return angka;
+}
+
 
 void create() {
 	system("cls");
@@ -225,27 +255,27 @@ void create() {
 		getch();
 		return;
 	}
-	printf("\n\n\n\n\n\n\n\n");
+	printf("\n\n\n\n\n\n\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\t\t\t\t\t**       MENU TAMBAH MOBIL      **\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\t\tMasukkan Merk Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Merk Mobil\t: ");
 	scanf("%[^\n]s", &ptr->merk);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\tMasukkan Nama Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Nama Mobil\t: ");
 	scanf("%[^\n]s", &ptr->nama);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\tMasukkan Warna Mobil: ");
+	printf("\n\t\t\t\t\tMasukkan Warna Mobil\t: ");
 	scanf("%[^\n]s", &ptr->warna);
 	while (getchar() != '\n');
-	printf("\n\t\t\t\t\tMasukkan Tahun Mobil: ");
-	scanf("%d", &ptr->tahun);
-	while (getchar() != '\n');
-	printf("\n\t\t\t\t\tMasukkan Harga Mobil: ");
-	scanf("%ld", &ptr->harga);
-	while (getchar() != '\n');
+	printf("\n\t\t\t\t\tMasukkan Tahun Mobil\t: ");
+	ptr->tahun = (int)inputangka();
+	printf("\n\n\t\t\t\t\tMasukkan Harga Mobil\t: ");
+	ptr->harga = inputangka();
 	sprintf(ptr->ID, "%.2s%.2s%.1s%d", ptr->merk, ptr->nama, ptr->warna, ptr->tahun % 100);
+	printf("\n\n\n\n\t\t\t\t\t   Mobil Berhasil Ditambahkan!");
+	getch();
 	ptr->next = NULL;
 	if (head == NULL) {
 		ptr->next = head;
