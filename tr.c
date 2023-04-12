@@ -322,7 +322,17 @@ void read() {
 	printf("\033[%dA", posisi + 1);
 	ptr = head;
 	while (ptr != NULL) {
-		printf("\t\t\b\b\b\b\b\b%s\t\t\b\b\b\b\b\b\b\b\b\b\b\b%s\t\t\b\b\b%s\t\t%s\t\t\b%d\t\t\b\b\b\b\b%lld\n", ptr->ID, ptr->merk, ptr->nama, ptr->warna, ptr->tahun, ptr->harga);
+		printf("\t\t\b\b\b\b\b\b%s\n", ptr->ID);
+		printf("\033[1A");
+		printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b%s\n", ptr->merk);
+		printf("\033[1A");
+		printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b\t\t\t\b\b\b%s\n", ptr->nama);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t%s\n", ptr->warna);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t\t\t\b%d\n", ptr->tahun);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", ptr->harga);
 		ptr = ptr->next;
 	}
 }
