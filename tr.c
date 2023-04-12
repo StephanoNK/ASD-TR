@@ -433,7 +433,7 @@ void pilih_mobil(){
 		}
 
 		found = 0;
-		printf("\n\t\t\t\t\t\t\Search Finished");
+		printf("\n\t\t\t\t\t\tSearch Finished");
 	}
 }
 
