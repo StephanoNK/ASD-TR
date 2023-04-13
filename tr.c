@@ -578,15 +578,16 @@ void sortasc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
     char tmp[50];
+    long long tempharga;
     ptr = head;
 
     while (ptr != NULL){
         temp = head;
         while(temp->next != NULL){
             if(temp->harga > temp->next->harga){
-                tempvar = temp->harga;
+                tempharga = temp->harga;
                 temp->harga = temp->next->harga;
-                temp->next->harga = tempvar;
+                temp->next->harga = tempharga;
 
                 strcpy(tmp, temp->nama);
                 strcpy(temp->nama, temp->next->nama);
@@ -618,15 +619,16 @@ void sortdesc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
     char tmp[50];
+    long long tempharga;
     ptr = head;
 
     while (ptr != NULL){
         temp = head;
         while(temp->next != NULL){
             if(temp->harga > temp->next->harga){
-                tempvar = temp->harga;
+                tempharga = temp->harga;
                 temp->harga = temp->next->harga;
-                temp->next->harga = tempvar;
+                temp->next->harga = tempharga;
 
                 strcpy(tmp, temp->nama);
                 strcpy(temp->nama, temp->next->nama);
