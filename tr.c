@@ -73,7 +73,7 @@ void menu_utama() {
 		while (getchar() != '\n');
 
 		if (pilihan == 1) {
-			pilihmobil();
+			pilih_mobil();
 		}
 		else if (pilihan == 2) {
 			login();
@@ -483,7 +483,7 @@ void pilih_mobil(){
 			printf("\033[1A");
 			printf("\t\t\t\t\t\t\t\t\t\b%d\n", jumlah);
 			printf("\033[1A");
-			printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", harga;
+			printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", harga);
 			printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
 			return;
 		}
@@ -578,6 +578,7 @@ void history(){
 void sortasc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
+    char tmp[50];
     ptr = head;
 
     while (ptr != NULL){
@@ -587,6 +588,26 @@ void sortasc(){
                 tempvar = temp->harga;
                 temp->harga = temp->next->harga;
                 temp->next->harga = tempvar;
+
+                strcpy(tmp, temp->nama);
+                strcpy(temp->nama, temp->next->nama);
+                strcpy(temp->next->nama, tmp);
+
+                strcpy(tmp, temp->merk);
+                strcpy(temp->merk, temp->next->merk);
+                strcpy(temp->next->merk, tmp);
+
+                strcpy(tmp, temp->ID);
+                strcpy(temp->ID, temp->next->ID);
+                strcpy(temp->next->ID, tmp);
+
+                strcpy(tmp, temp->warna);
+                strcpy(temp->warna, temp->next->warna);
+                strcpy(temp->next->warna, tmp);
+
+                tempvar = temp->tahun;
+                temp->tahun = temp->next->tahun;
+                temp->next->tahun = tempvar;
             }
             temp = temp->next;
         }
@@ -597,15 +618,36 @@ void sortasc(){
 void sortdesc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
+    char tmp[50];
     ptr = head;
 
     while (ptr != NULL){
-        temp = ptr;
+        temp = ptr;;
         while(temp->next != NULL){
-            if(temp->harga < temp->next->harga){
+            if(temp->harga > temp->next->harga){
                 tempvar = temp->harga;
                 temp->harga = temp->next->harga;
                 temp->next->harga = tempvar;
+
+                strcpy(tmp, temp->nama);
+                strcpy(temp->nama, temp->next->nama);
+                strcpy(temp->next->nama, tmp);
+
+                strcpy(tmp, temp->merk);
+                strcpy(temp->merk, temp->next->merk);
+                strcpy(temp->next->merk, tmp);
+
+                strcpy(tmp, temp->ID);
+                strcpy(temp->ID, temp->next->ID);
+                strcpy(temp->next->ID, tmp);
+
+                strcpy(tmp, temp->warna);
+                strcpy(temp->warna, temp->next->warna);
+                strcpy(temp->next->warna, tmp);
+
+                tempvar = temp->tahun;
+                temp->tahun = temp->next->tahun;
+                temp->next->tahun = tempvar;
             }
             temp = temp->next;
         }
@@ -646,5 +688,4 @@ void sort_string(){
 
 
 }
-
 
