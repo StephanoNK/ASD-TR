@@ -304,7 +304,7 @@ void create() {
 
     t = time(NULL);
     syst = localtime(&t);
-	sprintf(riwayat[counter],"Admin telah menambahkan mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+	sprintf(riwayat[counter],"Admin telah MENAMBAHKAN mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
 	counter+=2;
 
 	getch();
@@ -388,8 +388,12 @@ void edit() {
 	scanf("%s", &find);
 	while (getchar() != '\n');
 	printf("\n\t\t\t\t    Anda mengupdate data mobil dengan id %s\n\n", find);
-	sprintf(riwayat[counter],"Admin telah telah mengedit mobil dengan ID : %s", temp->ID);
-	counter++;
+
+	t = time(NULL);
+    syst = localtime(&t);
+	sprintf(riwayat[counter],"Admin telah MENGEDIT mobil dengan ID : %s, pada tanggal %s", temp->ID, asctime(syst));
+	counter+=2;
+
 	getch();
 	system("cls");
 	if (temp == NULL) {
@@ -428,8 +432,6 @@ void edit() {
             return;
 		}
 
-
-		//strcpy(history[counter], "Admin menghapus data");
 	}
 
 }
@@ -486,6 +488,10 @@ void delete() {
 	while (ptr != NULL) {
 		if (ptr->next == NULL && ptr->prev == NULL && strcmp(IDhapus, ptr->ID) == 0) {
 			head = NULL;
+			t = time(NULL);
+            syst = localtime(&t);
+            sprintf(riwayat[counter],"Admin telah MENGHAPUS mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+            counter+=2;
 			free(ptr);
 			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
 			getch();
@@ -494,6 +500,10 @@ void delete() {
 		if (ptr->next == NULL && ptr->prev != NULL && strcmp(IDhapus, ptr->ID) == 0) {
 			temp = ptr->prev;
 			temp->next = NULL;
+			t = time(NULL);
+            syst = localtime(&t);
+            sprintf(riwayat[counter],"Admin telah MENGHAPUS mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+            counter+=2;
 			free(ptr);
 			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
 			getch();
@@ -502,6 +512,10 @@ void delete() {
 		if (ptr->next != NULL && ptr->prev == NULL && strcmp(IDhapus, ptr->ID) == 0) {
 			temp = ptr->next;
 			temp->prev = NULL;
+			t = time(NULL);
+            syst = localtime(&t);
+            sprintf(riwayat[counter],"Admin telah MENGHAPUS mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+            counter+=2;
 			free(ptr);
 			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
 			getch();
@@ -513,6 +527,10 @@ void delete() {
 			temp2 = ptr->next;
 			temp->next = temp2;
 			temp2->prev = temp;
+			t = time(NULL);
+            syst = localtime(&t);
+            sprintf(riwayat[counter],"Admin telah MENGHAPUS mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+            counter+=2;
 			free(ptr);
 			printf("\n\t\tMobil dengan ID %s berhasil dihapus!", IDhapus);
 			getch();
