@@ -73,7 +73,7 @@ void menu_utama() {
 		while (getchar() != '\n');
 
 		if (pilihan == 1) {
-			printf("belum ada menu");
+			pilihmobil();
 		}
 		else if (pilihan == 2) {
 			login();
@@ -446,34 +446,51 @@ void pilih_mobil(){
     char find[30];
 	int found = 0;
 	int jumlah;
-
+	long long harga;
 	struct mobil* temp;
 	temp = head;
-
-    read();
-
-    printf("\n\t\t\t\t   Masukkan pesanan : ");
-	scanf("%s", find);
 	if (temp == NULL) {
 		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
+		getch();
+		return;
 	}
-	else {
-		while (temp != NULL) {
-			if (strcmp(temp->ID, find) == 0) {
-				printf("\n\n\n\n\n\n\t\t\t\t\t\tMobil yang dipilih : %s", &temp->nama);
-				printf("\n\n\n\n\n\n\t\t\t\t\t\tJumlah pesanan : ");
-                jumlah = inputangka();
-                getch();
-				found = 1;
-			}
-			temp = temp->next;
+    read();
+    printf("\n\t\t\t\t   Masukkan ID mobil yang dipesan : ");
+	scanf("%[^\n]s", &find);
+	while (getchar() != '\n');
+	for(int i = 0; i < strlen(find); i++) find[i] = tolower(find[i]);
+	while (temp != NULL) {
+		if (strcmp(temp->ID, find) == 0) {
+			printf("\n\t\t\t\t\t\tMobil yang dipilih : %s %s", temp->merk, temp->nama);
+			printf("\n\t\t\t\t\t\tJumlah pesanan : ");
+			jumlah = inputangka();
+			harga = temp->harga * jumlah;
+			found = 1;
+			system("cls");
+			printf("\n");
+			printf("\t╔═════════╦════════════════╦══════════════════╦══════════════╦═══════════╦═════════════════════╗\n");
+			printf("\t║   ID    ║      Merk      ║       Nama       ║     Harga    ║   Jumlah  ║       SubTotal      ║\n");
+			printf("\t╠═════════╬════════════════╬══════════════════╬══════════════╬═══════════╬═════════════════════╣\n");
+			printf("\t║         ║                ║                  ║              ║           ║                     ║\n");
+			printf("\033[1A");
+			printf("\t\t\b\b\b\b\b\b%s\n", temp->ID);
+			printf("\033[1A");
+			printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b%s\n", temp->merk);
+			printf("\033[1A");
+			printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b\t\t\t\b\b\b%s\n", temp->nama);
+			printf("\033[1A");
+			printf("\t\t\t\t\t\t\t%lld\n", temp->harga);
+			printf("\033[1A");
+			printf("\t\t\t\t\t\t\t\t\t\b%d\n", jumlah);
+			printf("\033[1A");
+			printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", harga;
+			printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
+			return;
 		}
-		if (found == 0) {
-			printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tMobil tidak ditemukan");
-		}
-
-		found = 0;
-		printf("\n\t\t\t\t\t\tSearch Finished");
+		temp = temp->next;
+	}
+	if (found == 0) {
+		printf("\n\n\n\t\t\t\t\t\t\tMobil tidak ditemukan");
 	}
 }
 
@@ -550,9 +567,10 @@ void delete() {
 
 void history(){
     system("cls");
-
-    for(int i=0; i<counter; i+=2){
-        printf("\n\n\n\t\t%s", riwayat[i]);
+	printf("\n\n");
+    for (int i=0; i<counter; i+=2){
+        printf("\n\t\t%s\n", riwayat[i]);
+		while (getchar() != '\n');
     }
     getch();
 }
