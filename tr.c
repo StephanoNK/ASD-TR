@@ -510,8 +510,8 @@ void delete() {
 			return;
 		}
 		if (ptr->next != NULL && ptr->prev == NULL && strcmp(IDhapus, ptr->ID) == 0) {
-			temp = ptr->next;
-			temp->prev = NULL;
+			head = ptr->next;
+			head->prev = NULL;
 			t = time(NULL);
             syst = localtime(&t);
             sprintf(riwayat[counter],"Admin telah MENGHAPUS mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
