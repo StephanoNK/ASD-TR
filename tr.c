@@ -5,12 +5,19 @@
 #include <string.h>
 #include <conio.h>
 #include <pthread.h>
+#include <time.h>
 
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU(), edit();
-void read(), delete(), pilih_mobil();
+void read(), delete(), pilih_mobil(), history();
 
+char riwayat[50][50];
+int counter = 0;
 int rahasia = 0;
 pthread_t thread;
+
+struct tm *syst;
+time_t t;
+
 
 struct mobil {
 	char ID[8], merk[50], nama[100], warna[30];
@@ -164,6 +171,7 @@ void menu_admin() {
 		printf("\t\t\t\t\t\t4. Lihat daftar unit mobil\n");
 		printf("\t\t\t\t\t\t5. Search unit mobil\n");
 		printf("\t\t\t\t\t\t6. Keluar\n");
+		printf("\t\t\t\t\t\t7. History\n");
 		printf("\n\t\t\t\t\t\tPilih Menu : ");
 		scanf("%i", &pilihan);
 		while (getchar() != '\n');
@@ -189,6 +197,9 @@ void menu_admin() {
 		else if (pilihan == 6) {
 			system("color F0");
 			return;
+		}
+		else if(pilihan == 7){
+            history();
 		}
 	}
 }
@@ -290,6 +301,12 @@ void create() {
 	ptr->harga = inputangka();
 	sprintf(ptr->ID, "%.2s%.2s%.1s%d", ptr->merk, ptr->nama, ptr->warna, ptr->tahun % 100);
 	printf("\n\n\n\n\t\t\t\t\t   Mobil Berhasil Ditambahkan!");
+
+    t = time(NULL);
+    syst = localtime(&t);
+	sprintf(riwayat[counter],"Admin telah menambahkan mobil dengan ID : %s, pada tanggal %s", ptr->ID, asctime(syst));
+	counter+=2;
+
 	getch();
 	ptr->next = NULL;
 	if (head == NULL) {
@@ -322,7 +339,17 @@ void read() {
 	printf("\033[%dA", posisi + 1);
 	ptr = head;
 	while (ptr != NULL) {
-		printf("\t\t\b\b\b\b\b\b%s\t\t\b\b\b\b\b\b\b\b\b\b\b\b%s\t\t\b\b\b%s\t\t%s\t\t\b%d\t\t\b\b\b\b\b%lld\n", ptr->ID, ptr->merk, ptr->nama, ptr->warna, ptr->tahun, ptr->harga);
+		printf("\t\t\b\b\b\b\b\b%s\n", ptr->ID);
+		printf("\033[1A");
+		printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b%s\n", ptr->merk);
+		printf("\033[1A");
+		printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b\t\t\t\b\b\b%s\n", ptr->nama);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t%s\n", ptr->warna);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t\t\t\b%d\n", ptr->tahun);
+		printf("\033[1A");
+		printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", ptr->harga);
 		ptr = ptr->next;
 	}
 }
@@ -361,6 +388,8 @@ void edit() {
 	scanf("%s", &find);
 	while (getchar() != '\n');
 	printf("\n\t\t\t\t    Anda mengupdate data mobil dengan id %s\n\n", find);
+	sprintf(riwayat[counter],"Admin telah telah mengedit mobil dengan ID : %s", temp->ID);
+	counter++;
 	getch();
 	system("cls");
 	if (temp == NULL) {
@@ -398,6 +427,9 @@ void edit() {
             printf("\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\tMobil tidak ditemukan");
             return;
 		}
+
+
+		//strcpy(history[counter], "Admin menghapus data");
 	}
 
 }
@@ -491,3 +523,15 @@ void delete() {
 	printf("\n\t\tID tidak ditemukan!");
 	getch();
 }
+
+void history(){
+    system("cls");
+
+    for(int i=0; i<counter; i+=2){
+        printf("\n\n\n\t\t%s", riwayat[i]);
+    }
+    getch();
+}
+
+
+
