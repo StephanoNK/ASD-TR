@@ -217,28 +217,62 @@ void search() {
 	printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
 	printf("\t\t\t\t\t**********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\t   Masukkan nama mobil yang ingin dicari: ");
+	printf("\n\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
 	scanf("%s", find);
-	printf("\n\t\t\t\t\t  Anda akan mencari %s\n\n", find);
+	for(int i = 0; i < strlen(find); i++) find[i] = tolower(find[i]);
+	printf("\n\t\t\t\tAnda akan mencari %s\n\n", find);
 	getch();
 	if (temp == NULL) {
-		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
+		printf("\n\t\t\t\tList Kosong\n");
 	}
 	else {
 		while (temp != NULL) {
-			if (strcmp(temp->nama, find) == 0) {
-				printf("\n\n\n\n\n\n\t\t\t\t\t\t\tMobil ditemukan");
-                getch();
-				found = 1;
-			}
+			char find2[30];
+			strcpy(find2, temp->nama);
+			for(int i = 0; i < strlen(find2); i++) find2[i] = tolower(find2[i]);
+			if (strcmp(find2, find) == 0) found = 1;
 			temp = temp->next;
 		}
+		if (found == 1 ) {
+			printf("\t\t\tMobil Ditemukan!");
+			getch();
+		}
+		temp = head;
 		if (found == 0) {
-			printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tMobil tidak ditemukan");
+			printf("Mobil tidak ditemukan");
+		}
+		else if (found == 1) {
+			system("cls");
+			printf("\n");
+			printf("\t╔═════════╦════════════════╦══════════════════╦══════════════╦═══════════╦═════════════════════╗\n");
+			printf("\t║   ID    ║      Merk      ║       Nama       ║     Warna    ║   Tahun   ║        Harga        ║\n");
+			printf("\t╠═════════╬════════════════╬══════════════════╬══════════════╬═══════════╬═════════════════════╣\n");
+			while (temp != NULL) {
+				char find2[30];
+				strcpy(find2, temp->nama);
+				for(int i = 0; i < strlen(find2); i++) find2[i] = tolower(find2[i]);
+				if (strcmp(find2, find) == 0) {
+					printf("\t║         ║                ║                  ║              ║           ║                     ║\n");
+					printf("\033[1A");
+					printf("\t\t\b\b\b\b\b\b%s\n", temp->ID);
+					printf("\033[1A");
+					printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b%s\n", temp->merk);
+					printf("\033[1A");
+					printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b\t\t\t\b\b\b%s\n", temp->nama);
+					printf("\033[1A");
+					printf("\t\t\t\t\t\t\t%s\n", temp->warna);
+					printf("\033[1A");
+					printf("\t\t\t\t\t\t\t\t\t\b%d\n", temp->tahun);
+					printf("\033[1A");
+					printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", temp->harga);
+				}
+				temp = temp->next;
+			}
+			printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
 		}
 
 		found = 0;
-		printf("\n\t\t\t\t\t\tSearch Finished");
+		printf("\nSearch Finished");
 	}
 
 }
