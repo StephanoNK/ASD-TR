@@ -7,6 +7,12 @@
 #include <pthread.h>
 #include <time.h>
 
+//Anggota :
+        // 1. Stephano N.K (672022023)
+        // 2. Reynard R.C (672022043)
+        // 3. Jovian Obie A (672022087)
+        // 4. Gerant N.H.G (672022104)
+
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU(), edit();
 void read(), delete(), pilih_mobil(), history(), swap(), menu_sorting();
 int countnodes();
@@ -74,6 +80,7 @@ void menu_utama() {
 
 		if (pilihan == 1) {
 			pilih_mobil();
+			getch();
 		}
 		else if (pilihan == 2) {
 			login();
@@ -485,6 +492,7 @@ void pilih_mobil(){
 			printf("\033[1A");
 			printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", harga);
 			printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
+			printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\tTerima Kasih Telah Membeli\n");
 			return;
 		}
 		temp = temp->next;
@@ -733,4 +741,3 @@ void sort_string(int pilihsort){
 	}
 
 }
-
