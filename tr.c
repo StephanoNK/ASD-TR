@@ -570,7 +570,6 @@ void history(){
 	printf("\n\n");
     for (int i=0; i<counter; i+=2){
         printf("\n\t\t%s\n", riwayat[i]);
-		while (getchar() != '\n');
     }
     getch();
 }
@@ -579,15 +578,16 @@ void sortasc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
     char tmp[50];
+    long long tempharga;
     ptr = head;
 
     while (ptr != NULL){
-        temp = ptr;
+        temp = head;
         while(temp->next != NULL){
             if(temp->harga > temp->next->harga){
-                tempvar = temp->harga;
+                tempharga = temp->harga;
                 temp->harga = temp->next->harga;
-                temp->next->harga = tempvar;
+                temp->next->harga = tempharga;
 
                 strcpy(tmp, temp->nama);
                 strcpy(temp->nama, temp->next->nama);
@@ -619,15 +619,16 @@ void sortdesc(){
     struct mobil *ptr = NULL, *temp = NULL;
     int tempvar;
     char tmp[50];
+    long long tempharga;
     ptr = head;
 
     while (ptr != NULL){
-        temp = ptr;;
+        temp = head;
         while(temp->next != NULL){
             if(temp->harga > temp->next->harga){
-                tempvar = temp->harga;
+                tempharga = temp->harga;
                 temp->harga = temp->next->harga;
-                temp->next->harga = tempvar;
+                temp->next->harga = tempharga;
 
                 strcpy(tmp, temp->nama);
                 strcpy(temp->nama, temp->next->nama);
@@ -656,14 +657,15 @@ void sortdesc(){
 }
 
 void menu_sorting(){
-    int option;
-
+    int option = 0;
     system("cls");
-    while (option != 3){
+    while (option != 5){
     printf("\n\n\n\n\n\n\n\n\n\n");
-    printf("\n\t\t\t\t\t1. Ascending\n");
-    printf("\n\t\t\t\t\t2. Descending\n");
-    printf("\n\t\t\t\t\t3. Kembali\n");
+    printf("\n\t\t\t\t\t1. Harga Ascending\n");
+    printf("\n\t\t\t\t\t2. Harga Descending\n");
+	printf("\n\t\t\t\t\t3. Nama Ascending\n");
+    printf("\n\t\t\t\t\t4. Nama Descending\n");
+    printf("\n\t\t\t\t\t5. Kembali\n");
     printf("\n\t\t\t\t\tPilihan ? ");
     scanf("%i", &option);
     while (getchar() != '\n');
@@ -675,17 +677,60 @@ void menu_sorting(){
             sortdesc();
             printf("\n\n\n\n\n\n\n\n\n\t\t\t\tData telah disorting descending berdasarkan harga");
         }
-        else if(option == 3){
+		else if(option == 3){
+            sort_string(0);
+            printf("\n\n\n\n\n\n\n\n\n\t\t\t\tData telah disorting ascending berdasarkan nama ");
+        }
+        else if(option == 4){
+            sort_string(1);
+            printf("\n\n\n\n\n\n\n\n\n\t\t\t\tData telah disorting descending berdasarkan nama");
+        }
+        else if(option == 5){
             return;
         }
     }
 }
 
-void sort_string(){
-    struct mobil *ptr = NULL, *temp = NULL;
-    int tempvar;
+void sort_string(int pilihsort){
+    struct mobil *ptr, *temp;
+	int wtf;
+	int tempvar;
+    char tmp[50];
+	long long tempharga;
     ptr = head;
+	while(ptr!=NULL){
+		temp = head;
+		while(temp->next != NULL){
+			wtf = strcmp(temp->nama,temp->next->nama);
+			if((wtf > 0 && pilihsort == 0) || (wtf < 0 && pilihsort == 1)){
+				tempharga = temp->harga;
+                temp->harga = temp->next->harga;
+                temp->next->harga = tempharga;
 
+                strcpy(tmp, temp->nama);
+                strcpy(temp->nama, temp->next->nama);
+                strcpy(temp->next->nama, tmp);
+
+                strcpy(tmp, temp->merk);
+                strcpy(temp->merk, temp->next->merk);
+                strcpy(temp->next->merk, tmp);
+
+                strcpy(tmp, temp->ID);
+                strcpy(temp->ID, temp->next->ID);
+                strcpy(temp->next->ID, tmp);
+
+                strcpy(tmp, temp->warna);
+                strcpy(temp->warna, temp->next->warna);
+                strcpy(temp->next->warna, tmp);
+
+                tempvar = temp->tahun;
+                temp->tahun = temp->next->tahun;
+                temp->next->tahun = tempvar;
+			}
+			temp = temp->next;
+		}
+		ptr = ptr->next;
+	}
 
 }
 
