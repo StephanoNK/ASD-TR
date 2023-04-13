@@ -550,6 +550,3 @@ void history(){
     }
     getch();
 }
-
-
-
