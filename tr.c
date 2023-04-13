@@ -8,7 +8,8 @@
 #include <time.h>
 
 void loading(), login(), menu_admin(), menu_utama(), create(), UwU(), edit();
-void read(), delete(), pilih_mobil(), history();
+void read(), delete(), pilih_mobil(), history(), swap(), menu_sorting();
+int countnodes();
 
 char riwayat[50][50];
 int counter = 0;
@@ -172,6 +173,7 @@ void menu_admin() {
 		printf("\t\t\t\t\t\t5. Search unit mobil\n");
 		printf("\t\t\t\t\t\t6. Keluar\n");
 		printf("\t\t\t\t\t\t7. History\n");
+		printf("\t\t\t\t\t\t8. Sorting\n");
 		printf("\n\t\t\t\t\t\tPilih Menu : ");
 		scanf("%i", &pilihan);
 		while (getchar() != '\n');
@@ -201,6 +203,10 @@ void menu_admin() {
 		else if(pilihan == 7){
             history();
 		}
+		else if (pilihan == 8){
+            menu_sorting();
+            getch();
+		}
 	}
 }
 
@@ -213,66 +219,32 @@ void search() {
 	temp = head;
 
 	printf("\n\n\n\n\n\n\n\n");
-	printf("\t\t\t\t\t**********************************\n");
-	printf("\t\t\t\t\t**       MENU DEALER MOBIL      **\n");
-	printf("\t\t\t\t\t**********************************\n");
+	printf("\t\t\t\t\t   **********************************\n");
+	printf("\t\t\t\t\t   **       MENU DEALER MOBIL      **\n");
+	printf("\t\t\t\t\t   **********************************\n");
 	printf("\n");
-	printf("\n\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
+	printf("\n\t\t\t\t\tMasukkan nama mobil yang ingin dicari: ");
 	scanf("%s", find);
-	for(int i = 0; i < strlen(find); i++) find[i] = tolower(find[i]);
-	printf("\n\t\t\t\tAnda akan mencari %s\n\n", find);
+	printf("\n\t\t\t\t\t\t Anda akan mencari %s\n\n", find);
 	getch();
 	if (temp == NULL) {
-		printf("\n\t\t\t\tList Kosong\n");
+		printf("\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t\tList kosong\n");
 	}
 	else {
 		while (temp != NULL) {
-			char find2[30];
-			strcpy(find2, temp->nama);
-			for(int i = 0; i < strlen(find2); i++) find2[i] = tolower(find2[i]);
-			if (strcmp(find2, find) == 0) found = 1;
+			if (strcmp(temp->nama, find) == 0) {
+				printf("\n\n\n\n\n\n\t\t\t\t\t\t\tMobil ditemukan");
+                getch();
+				found = 1;
+			}
 			temp = temp->next;
 		}
-		if (found == 1 ) {
-			printf("\t\t\tMobil Ditemukan!");
-			getch();
-		}
-		temp = head;
 		if (found == 0) {
-			printf("Mobil tidak ditemukan");
-		}
-		else if (found == 1) {
-			system("cls");
-			printf("\n");
-			printf("\t╔═════════╦════════════════╦══════════════════╦══════════════╦═══════════╦═════════════════════╗\n");
-			printf("\t║   ID    ║      Merk      ║       Nama       ║     Warna    ║   Tahun   ║        Harga        ║\n");
-			printf("\t╠═════════╬════════════════╬══════════════════╬══════════════╬═══════════╬═════════════════════╣\n");
-			while (temp != NULL) {
-				char find2[30];
-				strcpy(find2, temp->nama);
-				for(int i = 0; i < strlen(find2); i++) find2[i] = tolower(find2[i]);
-				if (strcmp(find2, find) == 0) {
-					printf("\t║         ║                ║                  ║              ║           ║                     ║\n");
-					printf("\033[1A");
-					printf("\t\t\b\b\b\b\b\b%s\n", temp->ID);
-					printf("\033[1A");
-					printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b%s\n", temp->merk);
-					printf("\033[1A");
-					printf("\t\t\b\b\b\b\b\b\t\t\b\b\b\b\t\t\t\b\b\b%s\n", temp->nama);
-					printf("\033[1A");
-					printf("\t\t\t\t\t\t\t%s\n", temp->warna);
-					printf("\033[1A");
-					printf("\t\t\t\t\t\t\t\t\t\b%d\n", temp->tahun);
-					printf("\033[1A");
-					printf("\t\t\t\t\t\t\t\t\t\t\t\b\b\b\b\b%lld\n", temp->harga);
-				}
-				temp = temp->next;
-			}
-			printf("\t╚═════════╩════════════════╩══════════════════╩══════════════╩═══════════╩═════════════════════╝\n");
+			printf("\n\n\t\t\t\t\t\tMobil tidak ditemukan");
 		}
 
 		found = 0;
-		printf("\nSearch Finished");
+		printf("\n\t\t\t\t\t\t   Search Finished");
 	}
 
 }
@@ -584,3 +556,77 @@ void history(){
     }
     getch();
 }
+
+void sortasc(){
+    struct mobil *ptr = NULL, *temp = NULL;
+    int tempvar;
+    ptr = head;
+
+    while (ptr != NULL){
+        temp = ptr;
+        while(temp->next != NULL){
+            if(temp->harga > temp->next->harga){
+                tempvar = temp->harga;
+                temp->harga = temp->next->harga;
+                temp->next->harga = tempvar;
+            }
+            temp = temp->next;
+        }
+        ptr = ptr->next;
+    }
+}
+
+void sortdesc(){
+    struct mobil *ptr = NULL, *temp = NULL;
+    int tempvar;
+    ptr = head;
+
+    while (ptr != NULL){
+        temp = ptr;
+        while(temp->next != NULL){
+            if(temp->harga < temp->next->harga){
+                tempvar = temp->harga;
+                temp->harga = temp->next->harga;
+                temp->next->harga = tempvar;
+            }
+            temp = temp->next;
+        }
+        ptr = ptr->next;
+    }
+}
+
+void menu_sorting(){
+    int option;
+
+    system("cls");
+    while (option != 3){
+    printf("\n\n\n\n\n\n\n\n\n\n");
+    printf("\n\t\t\t\t\t1. Ascending\n");
+    printf("\n\t\t\t\t\t2. Descending\n");
+    printf("\n\t\t\t\t\t3. Kembali\n");
+    printf("\n\t\t\t\t\tPilihan ? ");
+    scanf("%i", &option);
+    while (getchar() != '\n');
+        if(option == 1){
+            sortasc();
+            printf("\n\n\n\n\n\n\n\n\n\t\t\t\tData telah disorting ascending berdasarkan harga ");
+        }
+        else if(option == 2){
+            sortdesc();
+            printf("\n\n\n\n\n\n\n\n\n\t\t\t\tData telah disorting descending berdasarkan harga");
+        }
+        else if(option == 3){
+            return;
+        }
+    }
+}
+
+void sort_string(){
+    struct mobil *ptr = NULL, *temp = NULL;
+    int tempvar;
+    ptr = head;
+
+
+}
+
+
